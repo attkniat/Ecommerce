@@ -1,0 +1,109 @@
+﻿@model ProjectEcommerce.DAL.Tbl_Product
+@{
+	ViewBag.Title = "ProdutoEdit";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+
+	@using (Html.BeginForm("ProdutoEdit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+	<div>
+		<h4>Edição de Produto</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.ProductId)
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.ProductImage, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					<div style="padding:10px;">
+						<div class="thumbnail product-item">
+							<img style="height:160px; width:260px" src="~/ProductImages/@Url.Content(Model.ProductImage)" />
+						</div>
+						<div style="padding:10px;">
+							<input type="file" name="file" id="file" />
+						</div>
+						@Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+		</div>
+		@{
+			List<SelectListItem> dadosLista = ViewBag.CategoryList;
+		}
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.DropDownListFor(model => model.CategoryId, dadosLista, "--Selecionar--", new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.CheckBox("isActive")
+					@Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.IsDelete, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.CheckBox("IsDelete")
+					@Html.ValidationMessageFor(model => model.IsDelete, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		@Html.HiddenFor(model => model.CreatedDate)
+		@Html.HiddenFor(model => model.ModifiedDate)
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.IsFeatured, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.CheckBox("IsFeatured")
+					@Html.ValidationMessageFor(model => model.IsFeatured, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<input type="submit" value="Salvar" class="btn btn-success" />
+				</div>
+			</div>
+		</div>
+	</div>
+				}
+</div>

@@ -1,0 +1,121 @@
+﻿@model ProjectEcommerce.DAL.Tbl_Product
+
+@{
+	ViewBag.Title = "ProductAdd";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Adicionar Novo Produto</h2>
+
+@using (Html.BeginForm("ProductAdd", "Admin", FormMethod.Post, new { enctype = "multipart/form-data"}))
+{
+	@Html.HiddenFor(model => model.ProductId)
+<div class="form-horizontal">
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	<div class="col-md-6">
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+	@{
+		List<SelectListItem> dadosLista = ViewBag.CategoryList;
+	}
+	<div class="col-md-6">
+		<div class="form-group">
+			@Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.CategoryId, dadosLista, "--Selecionar--", new {@class = "form-control"})
+				@Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="form-group">
+			@Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.CheckBox("isActive")
+				@Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+				@Html.HiddenFor(model => model.IsDelete)
+
+		<script>
+			var input = document.querySelector('#file-input');
+			var idDiv = document.getElementById('idDivImage');
+
+			input.addEventListener('click',preview);
+			function preview(){
+			    var fileObject = this.files[0];
+			    var fileReader = new FileReader();
+			    fileReader.readAsDataURL(fileObject);
+			    fileReader.onload = function(){
+					var result = fileReader.result;
+					var uniqueImage = document.createElement('img');
+
+					idDiv.appendChild('uniqueImage');
+			        var img = document.querySelector('#preview');
+			        img.setAttribute('src',result);
+			    }
+			}
+		</script>
+
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(model => model.ProductImage, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="thumbnail product-item" id="idDivImage">
+					@*<img style="height:160px; width:260px" id="preview" />*@
+				</div>
+				<div class="col-md-10">
+					<input type="file" name="file" id="file-input" style="width:100%;" />
+					@*<div id="container">
+						<img style="height:160px; width:260px" id="preview" />
+					</div>*@
+					@Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+					@*<img style="height:160px; width:260px" src="~/@Url.Content(Model.ProductImage)" />*@
+				</div>
+			</div>
+		</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			@Html.LabelFor(model => model.IsFeatured, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.CheckBox("IsFeatured")
+				@Html.ValidationMessageFor(model => model.IsFeatured, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="form-group">
+			@Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="form-group">
+			@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" value="Criar" class="btn btn-info" />
+		</div>
+	</div>
+</div>
+}

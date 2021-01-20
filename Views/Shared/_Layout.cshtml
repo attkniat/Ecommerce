@@ -1,0 +1,94 @@
+﻿@using ProjectEcommerce.Models.Home
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - My ASP.NET Application</title>
+	@*@Styles.Render("~/Content/css")*@
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/Content/MyMainLayout.css" rel="stylesheet" />
+	@Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<div class="logo">
+					<h1><a href="#">Thâmara Kids <span> Store</span></a></h1>
+					<p>Thâmara Kids ®</p>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				@*<div class="account">
+						<ul>
+							<li>
+								<div class="hidden-xs">
+									<h4><a>Contado</a></h4>
+									<p>(62) 99193 8396</p>
+								</div>
+								<div class="visible-xs">
+									<p>(62) 99193 8396</p>
+								</div>
+							</li>
+						</ul>
+					</div>*@
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">Carrinho<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							@if (Session["cart"] != null)
+							{
+								foreach (Item item in (List<Item>)Session["cart"])
+								{
+									<li><a href="#">@item.Product.ProductName (@item.Quantity)</a></li>
+								}
+							}
+							<li class="divider"></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="nav-menus">
+					<ul class="nav nav-pills">
+						<li><a style="border-radius:5px;" href="#">Início</a></li>
+						<li><a style="border-radius:5px;" href="#">Localização</a></li>
+						<li><a style="border-radius:5px;" href="#">Sobre</a></li>
+						<li><a style="border-radius:5px;" href="../Admin/dashboard">Admin</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		@RenderBody()
+		<hr />
+		<footer>
+			<div class="row">
+				<div class="col-md-12 copyright">
+					<div class="col-md-6 col-sm-6 copyright-left">
+						<p>&copy; @DateTime.Now.Year - Thâmara Kids ®</p>
+					</div>
+					<div class="col-md-6 col-sm-6 copyright-right">
+						<ul class="list-unstyled list-social">
+							<li><a href="" target="_blank"><i class="fa fa-facebook-square"></i></a></li>
+							<li><a href="" target="_blank"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+</body>
+</html>

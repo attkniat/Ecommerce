@@ -1,0 +1,52 @@
+﻿@model ProjectEcommerce.Models.CategoryDetail
+@{
+	ViewBag.Title = "UpdateCategory";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+	<!-- Breadcrumbs-->
+	<!-- DataTables Example -->
+		<div class="card-header">
+			<i class="fas fa-table"></i>
+			Adicionar Nova Categoria
+		</div>
+		<div class="form-horizontal">
+			@using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+			{
+				@Html.HiddenFor(m => m.CategoryId)
+				<div class="col-md-10">
+					<div class="form-group">
+						@Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.CheckBox("IsActive")
+							@Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(model => model.IsDelete, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.CheckBox("IsDelete")
+							@Html.ValidationMessageFor(model => model.IsDelete, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					@Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
+					<a onclick="window.history.back();" class="btn btn-danger" style="color:white;" >Cancelar</a>
+					<input type="submit" class="btn btn-primary" value="Salvar" />
+				</div>
+			}
+		</div>
+</div>
